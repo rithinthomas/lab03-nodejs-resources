@@ -6,15 +6,18 @@ const loginControl = (request, response) => {
     let password = request.body.password;
     if (!username || !password) {
         response.render('failedLogin', {message: "Login failed - Username or Password incorrect."});
-    } else {
+    } 
+    else {
         if (request.session && request.session.user) {
             response.render('postLogin', {username: username});
-        } else {
+        } 
+        else {
             clientServices.loginService(username, password, function(err, dberr, client) {
                 console.log("Client from login service :" + JSON.stringify(client));
                 if (client === null) {
                     response.render('failedLogin', {message: "Login failed - No account Found."});
-                } else {
+                } 
+                else {
                     console.log("User from login service :" + client[0].num_client);
                     //add to session
                     request.session.user = username;
